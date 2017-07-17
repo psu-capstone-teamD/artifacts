@@ -1,0 +1,61 @@
+AdminUI BXF Tags:
+<Schedule>
+- type: “Primary” | “NonPrimary”
+- scheduleId: “urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx”
+- scheduleStart: “yyyy-mm-ddThh:mm:ss.mm”
+- scheduleEnd: “yyyy-mm-ddThh:mm:ss.mm”
+- action: “add” 
+
+<Channel> <!-- might not need? -->
+- channelNumber: “n-m”
+- status: “active” | “inactive”
+- type: “digital_television” | “home_media” (?)
+- ca: “true” | “false”
+- action: “add”
+
+<ScheduledEvent>
+
+<EventData>
+- eventType: “Primary” | “NonPrimary”
+- action: “add” 
+- <PrimaryEvent>
+    <ProgramEvent>
+      <SegmentNumber>: order in which the segment will play
+      <ProgramName>: name of the segment
+      
+- <StartDateTime>:
+    <SmpteDateTime>: Indicates when the video is going to be streamed (yyyy-mm-dd)
+      <SmpteTimeCode>: The specific time the video will begin (hh:mm:ss:ff)
+
+- <LengthOption>
+    <Duration>
+      <SmpteDuration>
+        - frameRate: “24” | “30” | “60”
+        - <SmpteTimeCode>: When the segment will end, hh:mm:ss:ff
+
+- <StartMode>: Fixed | Duration
+
+- <EndMode>: Fixed | Duration
+
+- <Transitions>: <!-- feature that can be implemented in a later iteration -->
+
+- <Content>: Media-file specifics
+    <ContentId>
+      <HouseNumber>: Used for billing purposes <!-- might not need? -->
+    <Name>: Name of the media segment (uri:HouseNumber.mov)
+    <Description>: Description of the media segment
+    <Media>: Import metadata information for the segment
+      <PrecompressedTS> 
+        <TSVideos>
+          <DigitalVideo>: true | false
+          <Format>: 480p | 480i | 720p | 720i | 1080p | 1080i, etc.
+          <AspectRatio> 4:3 | 16:9
+          <TSCaptioning> true | false <!-- might not need? -->
+    <MediaLocation>
+      <Location>
+        <AssetServer>
+          playoutAllowed: “true” | “false
+          fileTransferAllowed: “true” | “false
+          <PathName>: Where the file is located (link to S3 bucket)
+     <SOM><!-- might not need this?-->
+        <SmpteTimeCode>: hh:mm:ss:ff
